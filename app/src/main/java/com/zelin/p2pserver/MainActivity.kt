@@ -1,20 +1,32 @@
 package com.zelin.p2pserver
 
+import android.net.wifi.p2p.WifiP2pManager.EXTRA_DISCOVERY_STATE
+import android.net.wifi.p2p.WifiP2pManager.WIFI_P2P_DISCOVERY_STARTED
+import android.net.wifi.p2p.WifiP2pManager.WIFI_P2P_DISCOVERY_STOPPED
 import android.os.Bundle
+import android.util.Log
+import android.widget.ImageView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.zelin.p2pserver.PermissionManager.REQUEST_CODE_CREATE_GROUP
+import com.zelin.p2pserver.PermissionManager.REQUEST_CODE_PEERS_DISCOVERY
+import com.zelin.p2pserver.PermissionManager.REQUEST_CODE_REQUEST_DEVICE_INFO
+import pub.devrel.easypermissions.EasyPermissions
+import pub.devrel.easypermissions.EasyPermissions.PermissionCallbacks
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(){
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(TAG, "onCreate()")
+        setContentView(R.layout.activity_main)
+    }
+
+
+
+    companion object {
+        private const val TAG = "peerServer/MainActivity"
     }
 }
 
