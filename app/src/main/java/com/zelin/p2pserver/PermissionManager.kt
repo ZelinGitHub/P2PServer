@@ -21,12 +21,14 @@ object PermissionManager {
     fun isHavePermissions(activity: Activity, requestCode: Int): Boolean {
         Log.i(TAG,"isHavePermissions()")
         val permissions: MutableList<String> = ArrayList()
+        //需要的两个权限
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
         permissions.add(Manifest.permission.NEARBY_WIFI_DEVICES)
         //先将集合转换为数组
         //然后增加星号，转换数组为可变参数
         if (!EasyPermissions.hasPermissions(activity, *permissions.toTypedArray())) {
             Log.e(TAG, "isHavePermissions() 权限不足")
+            //requestCode用来在回调时做区分
             EasyPermissions.requestPermissions(
                 activity, "需要权限",
                 requestCode, *permissions.toTypedArray()

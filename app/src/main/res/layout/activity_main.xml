@@ -3,15 +3,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-            android:id="@+id/iv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    <TextView
-            android:text="p2p服务端"
-            android:textSize="23sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+<Button
+        android:text="开始测试P2P连接"
+        android:layout_centerInParent="true"
+        android:id="@+id/btn_to_p2ptest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

@@ -22,7 +22,9 @@ object P2pServerManager {
 
     fun init(context: Context) {
         Log.i(TAG, "init()")
+        //得到WifiP2pManager对象
         mWifiP2pManager = context.getSystemService(Context.WIFI_P2P_SERVICE) as WifiP2pManager?
+        //这个方法必须在任何其他Wi-Fi直连方法使用之前调用。
         mWifiP2pChannel = mWifiP2pManager?.initialize(context, context.mainLooper, null)
     }
 
@@ -61,13 +63,11 @@ object P2pServerManager {
     @SuppressLint("MissingPermission")
     fun beginPeersDiscovery(activity: Activity) {
         Log.i(TAG, "beginPeersDiscovery()")
-
         if (!PermissionManager.isHavePermissions(activity, REQUEST_CODE_PEERS_DISCOVERY)) {
             Log.e(TAG, "beginPeersDiscovery() 权限不足")
             return
         }
         Log.i(TAG, "beginPeersDiscovery() call WifiP2pManager.discoverPeers()")
-        Toast.makeText(activity, "开始设备发现", Toast.LENGTH_SHORT).show()
         if (mWifiP2pChannel != null) {
             mWifiP2pManager?.discoverPeers(mWifiP2pChannel, null)
         }
@@ -86,10 +86,11 @@ object P2pServerManager {
         }
         Log.i(TAG, "beginRequestDeviceInfo() call WifiP2pManager.requestDeviceInfo()")
         mWifiP2pChannel?.let {
+            //请求当前设备信息
             mWifiP2pManager?.requestDeviceInfo(
                 it
             ) {
-                //新的p2p设备信息
+                //当前设备的新的p2p设备信息
                     wifiP2pDevice ->
                 Log.i(
                     TAG,

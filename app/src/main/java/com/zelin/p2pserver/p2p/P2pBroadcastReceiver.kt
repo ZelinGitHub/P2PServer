@@ -26,6 +26,11 @@ class P2pBroadcastReceiver(
                 Log.i(TAG, "onReceive() WIFI_P2P_THIS_DEVICE_CHANGED_ACTION")
                 mOnWIFI_P2P_THIS_DEVICE_CHANGED_ACTION?.invoke(intent.extras)
             }
+            //连接状态改变
+            WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -> {
+                Log.i(TAG, "onReceive() WIFI_P2P_CONNECTION_CHANGED_ACTION")
+                mOnWIFI_P2P_CONNECTION_CHANGED_ACTION?.invoke(intent.extras)
+            }
         }
     }
 
@@ -34,15 +39,22 @@ class P2pBroadcastReceiver(
         private const val TAG = "peerServer/WiFiDirectBroadcastReceiver"
         private val mReceiver: BroadcastReceiver = P2pBroadcastReceiver()
         var mOnWIFI_P2P_THIS_DEVICE_CHANGED_ACTION: ((bundle: Bundle?) -> Unit)? = null
+        var mOnWIFI_P2P_CONNECTION_CHANGED_ACTION: ((bundle: Bundle?) -> Unit)? = null
         var mOnWIFI_P2P_DISCOVERY_CHANGED_ACTION: ((bundle: Bundle?) -> Unit)? = null
 
         fun registerP2pReceiver(context: Activity) {
             Log.i(TAG, "registerP2pReceiver()")
             val mIntentFilter = IntentFilter()
             mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)
+            //一次设备发现开始或结束
+            //对于一般的Peer Discovery而言，如果搜索结束，会收到广播WifiP2pManager.WIFI_P2P_DISCOVERY_CHANGED_ACTION。
+            //监听这个广播，可以保持设备的设备发现状态。
             mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_DISCOVERY_CHANGED_ACTION)
             mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)
+            //连接状态改变
             mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)
+            //设备详细信息改变
+            //当前设备的详细信息发送改变的时候，系统会发出一个WIFI_P2P_THIS_DEVICE_CHANGED_ACTION Intent广播。
             mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)
             context.registerReceiver(mReceiver, mIntentFilter);
         }

@@ -14,4 +14,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/btn_create_group"
+                android:text="创建Group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/btn_start_socket"
+                android:text="开启Socket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
 </RelativeLayout>
